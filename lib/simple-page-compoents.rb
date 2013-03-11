@@ -33,8 +33,10 @@ module SimplePageCompoents
         end
       end
 
-      def add_item(text, url)
-        @items << NavItem.new(self, text, url)
+      def add_item(text, url, &block)
+        item = NavItem.new(self, text, url)
+        yield item if block_given?
+        @items << item
         self
       end
     end
@@ -60,8 +62,10 @@ module SimplePageCompoents
       c.join(' ')
     end
 
-    def add_item(text, url)
-      @items << NavItem.new(self, text, url)
+    def add_item(text, url, &block)
+      item = NavItem.new(self, text, url)
+      yield item if block_given?
+      @items << item
       self
     end
 
