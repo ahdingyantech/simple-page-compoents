@@ -9,6 +9,8 @@ module SimplePageCompoents
 
         @text = text
         @url  = url
+
+        @items = []
       end
 
       def is_active?
@@ -22,7 +24,15 @@ module SimplePageCompoents
       def render
         @view.haml_tag :li, :class => self.css_class do
           @view.haml_tag :a, @text,:href => @url
+
+          @view.haml_tag :ul, :class => 'nav' {
+            @items.each { |item| item.render }
+          } if @items.present?
         end
+      end
+
+      def add_item(item)
+        @items << item
       end
     end
 
@@ -38,15 +48,6 @@ module SimplePageCompoents
       @color_inverse =  args.include? :color_inverse
     end
 
-    def add_item(text, url)
-      @items << NavItem.new(self, text, url)
-      self
-    end
-
-    def prepend(str)
-      @prepends << str
-    end
-
     def css_class
       c = ['page-navbar']
       c << 'navbar-fixed-top' if @fixed_top
@@ -54,6 +55,15 @@ module SimplePageCompoents
       c << 'color-inverse' if @color_inverse
 
       c.join(' ')
+    end
+
+    def add_item(text, url)
+      @items << NavItem.new(self, text, url)
+      self
+    end
+
+    def prepend(str)
+      @prepends << str
     end
 
     def render
@@ -66,9 +76,7 @@ module SimplePageCompoents
           end
 
           @view.haml_tag :ul, :class => 'nav' do
-            @items.each do |item|
-              item.render
-            end
+            @items.each { |item| item.render }
           end
         end
       end
