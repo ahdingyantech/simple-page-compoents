@@ -19,7 +19,7 @@ module SimplePageCompoents
     end
 
     def css_class
-      is_active? ? 'active' : ''
+      is_active? ? 'active' : nil
     end
 
     def render
@@ -34,8 +34,9 @@ module SimplePageCompoents
 
     def add_item(text, url, &block)
       item = NavItem.new(text, url)
-      yield item if block_given?
       add_item_obj item
+
+      yield item if block_given?
     end
 
     def add_item_obj(item)
@@ -70,8 +71,9 @@ module SimplePageCompoents
 
     def add_item(text, url, &block)
       item = NavItem.new(text, url)
-      yield item if block_given?
       add_item_obj item
+
+      yield item if block_given?
     end
 
     def add_item_obj(item)
@@ -81,24 +83,31 @@ module SimplePageCompoents
       self
     end
 
-    def prepend(str)
+    def prepend(str = '', &block)
       @prepends << str
+      self
     end
 
     def render
       @view.haml_tag :div, :class => self.css_class do
         @view.haml_tag :div, :class => 'navbar-inner' do
-          @view.haml_tag :div, :class => 'nav-prepend' do
-            @prepends.each do |p|
-              @view.haml_concat p
-            end
-          end
+          _render_prepend
 
           @view.haml_tag :ul, :class => 'nav' do
             @items.each { |item| item.render }
-          end
+          end if @items.present?
         end
       end
     end
+
+    private
+      def _render_prepend
+        return if @prepends.blank?
+        @view.haml_tag :div, :class => 'navbar-prepend' do
+          @prepends.each do |p|
+            @view.haml_concat p
+          end
+        end
+      end
   end
 end
