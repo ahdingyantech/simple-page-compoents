@@ -2,31 +2,9 @@ body > .page-navbar {
   font-size:13px;
 }
 
-.navbar-fixed-top {
-  top:0;
-}
-
-.navbar-fixed-bottom {
-  bottom:0;
-}
-
-.navbar-fixed-top,
-.navbar-fixed-bottom {
-  left: 0;
-  margin-bottom: 0;
-  position: fixed;
-  right: 0;
-  z-index: 1000;
-  .navbar-inner{
-    padding-left:0;
-    padding-right:0;
-    @include border-radius(0);
-  }
-}
-
-.page-navbar{
+.page-navbar {
   overflow:visible;
-  .nav{
+  .nav {
     display:block;
     float:left;
     left:0;
@@ -50,7 +28,7 @@ body > .page-navbar {
     }
   }
 
-  &.color-inverse{
+  &.color-inverse {
     .navbar-inner {
       @include gradient(#222, #111);
       border-color:#252525;
@@ -61,6 +39,27 @@ body > .page-navbar {
           color:white;
         }
       }
+    }
+  }
+
+  &.fixed-top {
+    top:0;
+  }
+
+  &.fixed-bottom {
+    bottom:0;
+  }
+
+  &.fixed-top, &.fixed-bottom {
+    left: 0;
+    margin-bottom: 0;
+    position: fixed;
+    right: 0;
+    z-index: 1000;
+    .navbar-inner {
+      padding-left:0;
+      padding-right:0;
+      @include border-radius(0);
     }
   }
 }
