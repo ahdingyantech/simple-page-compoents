@@ -1,7 +1,8 @@
 module SimplePageCompoents
 
   class NavItem
-    attr_accessor :text, :url, :view
+    attr_accessor :text, :url
+    attr_accessor :parent, :view
     
     def initialize(text, url)
       @parent = nil
