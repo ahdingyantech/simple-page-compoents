@@ -1,5 +1,5 @@
 module SimplePageCompoents
-  
+
   class NavItem
     attr_accessor :text, :url
     attr_accessor :view, :items
@@ -33,8 +33,11 @@ module SimplePageCompoents
     end
 
     def add_item(text, url, &block)
-      item = NavItem.new(self, text, url)
-      yield item if block_given?
+      add_item_obj NavItem.new(text, url)
+    end
+
+    def add_item_obj(item)
+      item.parent = self
       @items << item
       self
     end
@@ -63,8 +66,11 @@ module SimplePageCompoents
     end
 
     def add_item(text, url, &block)
-      item = NavItem.new(self, text, url)
-      yield item if block_given?
+      add_item_obj NavItem.new(text, url)
+    end
+
+    def add_item_obj(item)
+      item.parent = self
       @items << item
       self
     end
