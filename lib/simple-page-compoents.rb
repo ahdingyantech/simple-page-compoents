@@ -1,46 +1,46 @@
 module SimplePageCompoents
-  class NavbarRender
+  
+  class NavItem
+    attr_accessor :text, :url
+    attr_accessor :view, :items
+    
+    def initialize(parent, text, url)
+      @parent = parent
+      @view = parent.view
 
-    class NavItem
-      attr_accessor :text, :url
-      attr_accessor :view, :items
-      
-      def initialize(parent, text, url)
-        @parent = parent
-        @view = parent.view
+      @text = text
+      @url  = url
 
-        @text = text
-        @url  = url
+      @items = []
+    end
 
-        @items = []
-      end
+    def is_active?
+      @view.request.path == @url
+    end
 
-      def is_active?
-        @view.request.path == @url
-      end
+    def css_class
+      is_active? ? 'active' : ''
+    end
 
-      def css_class
-        is_active? ? 'active' : ''
-      end
+    def render
+      @view.haml_tag :li, :class => self.css_class do
+        @view.haml_tag :a, @text,:href => @url
 
-      def render
-        @view.haml_tag :li, :class => self.css_class do
-          @view.haml_tag :a, @text,:href => @url
-
-          @view.haml_tag :ul, :class => 'nav' do
-            @items.each { |item| item.render }
-          end if @items.present?
-        end
-      end
-
-      def add_item(text, url, &block)
-        item = NavItem.new(self, text, url)
-        yield item if block_given?
-        @items << item
-        self
+        @view.haml_tag :ul, :class => 'nav' do
+          @items.each { |item| item.render }
+        end if @items.present?
       end
     end
 
+    def add_item(text, url, &block)
+      item = NavItem.new(self, text, url)
+      yield item if block_given?
+      @items << item
+      self
+    end
+  end
+
+  class NavbarRender
     attr_accessor :view, :items
 
     def initialize(view, *args)
