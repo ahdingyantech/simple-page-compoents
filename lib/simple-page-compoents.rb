@@ -1,12 +1,32 @@
 module SimplePageCompoents
   class NavbarRender
+
     class NavItem
       attr_accessor :text, :url
-      def initialize(text, url)
+      def initialize(parent, text, url)
+        @parent = parent
+        @view = parent.view
+
         @text = text
         @url  = url
       end
+
+      def is_active?
+        @view.request.path == @url
+      end
+
+      def css_class
+        is_active? ? 'active' : ''
+      end
+
+      def render
+        @view.haml_tag :li, :class => self.css_class do
+          @view.haml_tag :a, @text,:href => @url
+        end
+      end
     end
+
+    attr_accessor :view
 
     def initialize(view, *args)
       @view = view
@@ -19,7 +39,7 @@ module SimplePageCompoents
     end
 
     def add_item(text, url)
-      @items << NavItem.new(text, url)
+      @items << NavItem.new(self, text, url)
       self
     end
 
@@ -47,9 +67,7 @@ module SimplePageCompoents
 
           @view.haml_tag :ul, :class => 'nav' do
             @items.each do |item|
-              @view.haml_tag :li do
-                @view.haml_tag :a, item.text,:href => item.url
-              end
+              item.render
             end
           end
         end
@@ -60,6 +78,10 @@ module SimplePageCompoents
   module Helper
     def page_navbar(*args)
       NavbarRender.new(self, *args)
+    end
+
+    def page_breadcrumb(*args)
+      BreadcrumbRender.new(self, *args)
     end
   end
 
