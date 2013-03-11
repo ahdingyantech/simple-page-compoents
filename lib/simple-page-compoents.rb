@@ -4,8 +4,8 @@ module SimplePageCompoents
     attr_accessor :text, :url
     attr_accessor :view, :items
     
-    def initialize(parent, text, url)
-      @parent = parent
+    def initialize(text, url)
+      @parent = nil
       @view = parent.view
 
       @text = text
@@ -73,7 +73,7 @@ module SimplePageCompoents
       item.parent = self
       @items << item
       self
-    end
+    endqui
 
     def prepend(str)
       @prepends << str
