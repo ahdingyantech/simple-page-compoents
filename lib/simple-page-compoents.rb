@@ -25,9 +25,9 @@ module SimplePageCompoents
         @view.haml_tag :li, :class => self.css_class do
           @view.haml_tag :a, @text,:href => @url
 
-          @view.haml_tag :ul, :class => 'nav' {
+          @view.haml_tag :ul, :class => 'nav' do
             @items.each { |item| item.render }
-          } if @items.present?
+          end if @items.present?
         end
       end
 
