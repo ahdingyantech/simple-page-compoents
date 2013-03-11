@@ -73,7 +73,7 @@ module SimplePageCompoents
       item.parent = self
       @items << item
       self
-    endqui
+    end
 
     def prepend(str)
       @prepends << str
@@ -116,4 +116,5 @@ module SimplePageCompoents
     class Engine < ::Rails::Engine
     end
   end
+
 end
