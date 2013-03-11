@@ -3,6 +3,8 @@ module SimplePageCompoents
 
     class NavItem
       attr_accessor :text, :url
+      attr_accessor :view, :items
+      
       def initialize(parent, text, url)
         @parent = parent
         @view = parent.view
@@ -31,12 +33,13 @@ module SimplePageCompoents
         end
       end
 
-      def add_item(item)
-        @items << item
+      def add_item(text, url)
+        @items << NavItem.new(self, text, url)
+        self
       end
     end
 
-    attr_accessor :view
+    attr_accessor :view, :items
 
     def initialize(view, *args)
       @view = view
