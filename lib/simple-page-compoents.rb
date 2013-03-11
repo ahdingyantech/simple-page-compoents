@@ -1,12 +1,11 @@
 module SimplePageCompoents
 
   class NavItem
-    attr_accessor :text, :url
-    attr_accessor :view, :items
+    attr_accessor :text, :url, :view
     
     def initialize(text, url)
       @parent = nil
-      @view = parent.view
+      @view   = nil
 
       @text = text
       @url  = url
@@ -38,6 +37,7 @@ module SimplePageCompoents
 
     def add_item_obj(item)
       item.parent = self
+      item.view = @view
       @items << item
       self
     end
@@ -71,6 +71,7 @@ module SimplePageCompoents
 
     def add_item_obj(item)
       item.parent = self
+      item.view = @view
       @items << item
       self
     end
