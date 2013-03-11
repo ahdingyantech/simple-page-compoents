@@ -93,6 +93,18 @@ describe SimplePageCompoents::NavbarRender do
         end
       end
     end
+
+    context 'combo add item' do
+      it 'should add_item combo' do
+        @navbar.
+          add_item('aaa', '/aaa').
+          add_item('bbb', '/bbb').
+          prepend('456').
+          add_item('ccc', '/ccc')
+
+        @navbar.items.length == 5
+      end
+    end
   end
 
   describe '#add_item_obj' do

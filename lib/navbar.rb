@@ -35,8 +35,8 @@ module SimplePageCompoents
     def add_item(text, url, &block)
       item = NavItem.new(text, url)
       add_item_obj item
-
       yield item if block_given?
+      self
     end
 
     def add_item_obj(item)
@@ -72,8 +72,8 @@ module SimplePageCompoents
     def add_item(text, url, &block)
       item = NavItem.new(text, url)
       add_item_obj item
-
       yield item if block_given?
+      self
     end
 
     def add_item_obj(item)
