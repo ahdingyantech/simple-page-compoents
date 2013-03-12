@@ -110,3 +110,69 @@
   // ---
 }
 
+.page-navlist {
+  .navlist-inner {
+    ul.nav {
+      list-style:none outside none;
+      background-color:#fff;
+      padding:0;
+
+      @include box-shadow(0 1px 4px rgba(black, 0.067));
+      & > li {
+        & > a {
+          border:solid 1px #e5e5e5;
+          display:block;
+          margin:0 0 -1px;
+          padding:8px 14px;
+          text-shadow:0 1px 9 rgba(white, 0.5);
+          &:hover {
+            background-color:#f5f5f5;
+          }
+          &:hover, &:focus {
+            text-decoration:none;
+          }
+
+          .icon {
+            float:right;
+            margin-right:-6px;
+            margin-top:2px;
+            opacity:0.25;
+
+            background-image:url(/assets/compoents/glyphicons-halflings.png);
+            background-position: -456px -72px;
+            display:inline-block;
+            height:14px;width:14px;
+            vertical-align:text-top;
+          }
+        }
+
+        &:first-child > a {
+          @include border-radius(6px 6px 0 0);
+        }
+        &:last-child > a {
+          @include border-radius(0 0 6px 6px);
+        }
+
+        &.active > a {
+          border:0 none;
+          @include box-shadow((1px 0 0 rgba(black, 0.1) inset, -1px 0 0 rgba(black, 0.1) inset));
+          padding:9px 15px;
+          position:relative;
+          text-shadow:0 1px 0 rgba(black, 0.15);
+          z-index:2;
+          background-color:#0088cc;
+          color:#fff;
+          &:hover, &:focus {
+            background-color:#0088cc;
+            color:#fff;
+          }
+
+          .icon {
+            background-image:url(/assets/compoents/glyphicons-halflings-white.png);
+            opacity:1;
+          }
+        }
+      }
+    }
+  }
+}
