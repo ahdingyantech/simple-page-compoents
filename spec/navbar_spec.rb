@@ -248,8 +248,6 @@ describe SimplePageCompoents::NavbarRender do
       }
 
       it {
-        puts @html
-
         Nokogiri::XML(@html).
           css('.page-navlist > .navlist-inner a i.icon').
           should_not be_blank
