@@ -1,6 +1,17 @@
 # -*- encoding : utf-8 -*-
 module SimplePageCompoents
+  module CanRenderNavUl
+    private
+      def _render_ul
+        @view.haml_tag :ul, :class => 'nav' do
+          @items.each { |item| item.render }
+        end if @items.present?
+      end
+  end
+
   class NavItem
+    include CanRenderNavUl
+
     attr_accessor :text, :url
     attr_accessor :parent, :view
     attr_accessor :items
@@ -35,9 +46,7 @@ module SimplePageCompoents
     def render
       @view.haml_tag :li, :class => self.css_class do
         _render_a
-        @view.haml_tag :ul, :class => 'nav' do
-          @items.each { |item| item.render }
-        end if @items.present?
+        _render_ul
       end
     end
 
@@ -74,6 +83,8 @@ module SimplePageCompoents
   end
 
   class NavbarRender
+    include CanRenderNavUl
+    
     attr_accessor :view, :items
 
     def initialize(view, *args)
@@ -139,10 +150,7 @@ module SimplePageCompoents
       @view.haml_tag :div, :class => self.css_class do
         @view.haml_tag :div, :class => self.inner_css_class do
           _render_prepend
-
-          @view.haml_tag :ul, :class => 'nav' do
-            @items.each { |item| item.render }
-          end if @items.present?
+          _render_ul
         end
       end
     end
