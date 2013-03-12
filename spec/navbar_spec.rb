@@ -229,8 +229,54 @@ describe SimplePageCompoents::NavbarRender do
           css('.page-navlist > .navlist-inner a')[-1].content.should == 'hee'
       }
     end
+
+    context 'render with icon' do
+      before(:all) {
+        req = stub(:req)
+        req.stub(:path).and_return '/fire'
+        $view.request = req
+
+        @navbar = NavbarRender.new($view, :as_list, :with_icon)
+        @navbar.add_item('home', '/home') do |item|
+          item.add_item('foo', '/foo')
+          item.add_item('bar', '/bar') do |si|
+            si.add_item('hee', '/hee')
+          end
+        end
+
+        @html = $view.capture_haml {@navbar.render}
+      }
+
+      it {
+        puts @html
+
+        Nokogiri::XML(@html).
+          css('.page-navlist > .navlist-inner a i.icon').
+          should_not be_blank
+      }
+    end
   end
 end
 
 describe SimplePageCompoents::NavItem do
+  describe '#css_class' do
+    it {
+      NavItem.new('foo', '/bar').css_class.should == nil
+    }
+
+    it {
+      NavItem.new('foo', '/bar', :class => :abc).
+        css_class.should == 'abc'
+    }
+
+    it {
+      item = NavItem.new('foo', '/bar', :class => :abc)
+      class << item
+        def is_active?
+          true
+        end
+      end
+      item.css_class.should == 'abc active'
+    }
+  end
 end

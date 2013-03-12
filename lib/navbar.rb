@@ -5,7 +5,9 @@ module SimplePageCompoents
     attr_accessor :parent, :view
     attr_accessor :items
     
-    def initialize(text, url)
+    def initialize(text, url, options = {})
+      @option_class = options[:class] || ''
+
       @parent = nil
       @view   = nil
 
@@ -17,35 +19,58 @@ module SimplePageCompoents
 
     def is_active?
       @view.request.path == @url
+    rescue
+      false
     end
 
     def css_class
-      is_active? ? 'active' : nil
+      c = [@option_class]
+      c << 'active' if is_active?
+
+      re = c.join(' ')
+
+      re.blank? ? nil : re
     end
 
     def render
       @view.haml_tag :li, :class => self.css_class do
-        @view.haml_tag :a, @text,:href => @url
-
+        _render_a
         @view.haml_tag :ul, :class => 'nav' do
           @items.each { |item| item.render }
         end if @items.present?
       end
     end
 
-    def add_item(text, url, &block)
+    def add_item(text, url, options = {}, &block)
       item = NavItem.new(text, url)
       add_item_obj item
       yield item if block_given?
       self
     end
 
+    # 此方法为预留钩子，一般不用
     def add_item_obj(item)
       item.parent = self
       item.view = @view
       @items << item
       self
     end
+
+    def with_icon?
+      @parent.with_icon?
+    end
+
+    private
+      def _render_a
+        if self.with_icon?
+          @view.haml_tag :a, :href => @url do
+            @view.haml_tag :i, '', :class => 'icon'
+            @view.haml_concat @text
+          end
+          return
+        end
+        @view.haml_tag :a, @text,:href => @url
+      end
   end
 
   class NavbarRender
@@ -61,6 +86,8 @@ module SimplePageCompoents
       @color_inverse =  args.include? :color_inverse
 
       @as_list = args.include? :as_list
+
+      @with_icon = args.include? :with_icon
     end
 
     def css_class
@@ -84,18 +111,23 @@ module SimplePageCompoents
       'navbar-inner'
     end
 
-    def add_item(text, url, &block)
+    def add_item(text, url, options = {}, &block)
       item = NavItem.new(text, url)
       add_item_obj item
       yield item if block_given?
       self
     end
 
+    # 此方法为预留钩子，一般不用
     def add_item_obj(item)
       item.parent = self
       item.view = @view
       @items << item
       self
+    end
+
+    def with_icon?
+      @with_icon
     end
 
     def prepend(str = '', &block)
