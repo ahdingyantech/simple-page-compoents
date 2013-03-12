@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module SimplePageCompoents
   class NavItem
     attr_accessor :text, :url
