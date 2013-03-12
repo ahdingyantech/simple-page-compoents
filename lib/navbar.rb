@@ -59,15 +59,29 @@ module SimplePageCompoents
       @fixed_top = args.include? :fixed_top
       @fixed_bottom = args.include? :fixed_bottom
       @color_inverse =  args.include? :color_inverse
+
+      @as_list = args.include? :as_list
     end
 
     def css_class
+      if @as_list
+        return 'page-navlist'
+      end
+
       c = ['page-navbar']
       c << 'fixed-top' if @fixed_top
       c << 'fixed-bottom' if @fixed_buttom
       c << 'color-inverse' if @color_inverse
 
       c.join(' ')
+    end
+
+    def inner_css_class
+      if @as_list
+        return 'navlist-inner'
+      end
+
+      'navbar-inner'
     end
 
     def add_item(text, url, &block)
@@ -91,7 +105,7 @@ module SimplePageCompoents
 
     def render
       @view.haml_tag :div, :class => self.css_class do
-        @view.haml_tag :div, :class => 'navbar-inner' do
+        @view.haml_tag :div, :class => self.inner_css_class do
           _render_prepend
 
           @view.haml_tag :ul, :class => 'nav' do

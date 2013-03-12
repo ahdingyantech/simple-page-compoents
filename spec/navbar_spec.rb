@@ -196,6 +196,39 @@ describe SimplePageCompoents::NavbarRender do
       }
     end
 
+    context 'render as list' do
+      before(:all) {
+        req = stub(:req)
+        req.stub(:path).and_return '/fire'
+        $view.request = req
+
+        @navbar = NavbarRender.new($view, :as_list)
+        @navbar.add_item('home', '/home') do |item|
+          item.add_item('foo', '/foo')
+          item.add_item('bar', '/bar') do |si|
+            si.add_item('hee', '/hee')
+          end
+        end
+
+        @html = $view.capture_haml {@navbar.render}
+      }
+
+      it {
+        Nokogiri::XML(@html).
+          at_css('.page-navlist > .navlist-inner').
+          at_css('ul.nav > li > a').content.should == 'home'
+      }
+
+      it {
+        Nokogiri::XML(@html).
+          css('.page-navlist > .navlist-inner a').length.should == 4
+      }
+
+      it {
+        Nokogiri::XML(@html).
+          css('.page-navlist > .navlist-inner a')[-1].content.should == 'hee'
+      }
+    end
   end
 end
 
