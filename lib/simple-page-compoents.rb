@@ -1,10 +1,15 @@
 # -*- encoding : utf-8 -*-
 require 'navbar'
+require 'data_table'
 
 module SimplePageCompoents
   module Helper
     def page_navbar(*args)
       NavbarRender.new(self, *args)
+    end
+
+    def page_data_table(*args)
+      DataTable::Render.new(self, *args)
     end
 
     def page_breadcrumb(*args)
