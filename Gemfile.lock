@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    simple-page-compoents (0.0.1)
+    simple-page-compoents (0.0.2)
 
 GEM
   remote: http://rubygems.org/

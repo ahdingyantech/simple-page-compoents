@@ -11,6 +11,16 @@ class MockItem
 end
 
 describe SimplePageCompoents::DataTable::Render  do
+  before(:all) {
+    @items = [
+      MockItem.new('foo', 'bar', :hee),
+      MockItem.new('magic', 'fire', 'skill'),
+      MockItem.new('blz', :wow, 'game')
+    ]
+
+    @first_item = @items[0]
+  }
+
   describe '.initialize' do
     it('view should be pass') {
       Render.new($view, :test).view.should == $view
@@ -48,16 +58,6 @@ describe SimplePageCompoents::DataTable::Render  do
   end
 
   describe '#add_column' do
-    before(:all) {
-      @items = [
-        MockItem.new('foo', 'bar', :hee),
-        MockItem.new('magic', 'fire', 'skill'),
-        MockItem.new('blz', :wow, 'game')
-      ]
-
-      @first_item = @items[0]
-    }
-
     before(:each) {
       @table = Render.new($view, :test, @items)
       @table.
@@ -72,7 +72,6 @@ describe SimplePageCompoents::DataTable::Render  do
     }
 
     it 'items should be pass' do
-      puts @html
       @table.items.should == @items
     end
 
@@ -145,5 +144,25 @@ describe SimplePageCompoents::DataTable::Render  do
         }
       end
     end
+  end
+
+  describe '#add_line_data' do
+    before {
+      @table = Render.new($view, :test, @items)
+      @table.
+        add_line_data(:kind).
+        add_column(:name).
+        add_column(:val) { |item|
+          item.value
+        }
+
+      @html = $view.capture_haml {@table.render}
+      @nokogiri = Nokogiri::XML(@html)
+    }
+
+    it {
+      puts @html
+      @nokogiri.css('table tbody tr')[0]['data-kind'].should == 'hee'
+    }
   end
 end

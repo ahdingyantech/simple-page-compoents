@@ -36,6 +36,7 @@ module SimplePageCompoents
         @name = name
 
         @columns = []
+        @line_datas = []
       end
 
       def css_class
@@ -53,6 +54,11 @@ module SimplePageCompoents
         column = TableColumn.new(name.to_s, &block)
         column.table = self
         @columns << column
+        self
+      end
+
+      def add_line_data(name, &block)
+        @line_datas << name
         self
       end
 
@@ -83,9 +89,18 @@ module SimplePageCompoents
 
         def _render_line(item)
           tr_css_class = item.class.to_s.tableize.singularize
-          @view.haml_tag :tr, :class => tr_css_class do
+          data = _render_line_data(item)
+          @view.haml_tag :tr, :data => data, :class => tr_css_class do
             _render_tds(item)
           end
+        end
+
+        def _render_line_data(item)
+          re = Hash.new ''
+          @line_datas.each { |data|
+            re[data] = item.send(data)
+          }
+          re
         end
 
         def _render_tds(item)
