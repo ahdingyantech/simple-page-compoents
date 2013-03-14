@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'navbar'
 require 'data_table'
+require 'progress_bar'
 
 module SimplePageCompoents
   module Helper
@@ -14,6 +15,12 @@ module SimplePageCompoents
       table = DataTable::Render.new(self, name, items, *args)
       yield table
       capture {table.render}
+    end
+
+    def progress_bar(*args)
+      pb = ProgressBar::Render.new(self, *args)
+      yield pb
+      capture {pb.render}
     end
 
     def page_breadcrumb(*args)
