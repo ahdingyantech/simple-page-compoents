@@ -30,17 +30,32 @@ module SimplePageCompoents
     class Render
       attr_reader :view, :items, :columns, :name
 
-      def initialize(view, name, items = [])
+      def initialize(view, name, items = [], *args)
         @view = view
         @items = items
         @name = name
 
         @columns = []
         @line_datas = []
+
+        # change color on mouse hover
+        @table_hover = args.include? :hover 
+        
+        # table lines with striped color
+        @striped = args.include? :striped
+
+        # table with cell border
+        @bordered = args.include? :bordered
       end
 
       def css_class
-        "page-data-table #{name}"
+        c = [
+          "page-data-table", @name
+        ]
+        c << 'table-hover' if @table_hover
+        c << 'striped' if @striped
+        c << 'bordered' if @bordered
+        c.join(' ')
       end
 
       def render
