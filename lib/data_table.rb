@@ -10,12 +10,20 @@ module SimplePageCompoents
         @block = block
       end
 
+      def table=(table)
+        @table = table
+        @view = table.view
+      end
+
       def name_string
         I18n.t "compoents.data_table.#{@table.name}.#{@name}"
       end
 
       def value_of(item)
-        @block.nil? ? item.send(@name) : @block.call(item)
+        value = @block.nil? ? item.send(@name) : @view.capture {@block.call(item)}
+        value.to_s 
+        # 如果返回 symbol，将会不能显示
+        # bugfix: Issue #1
       end
     end
 

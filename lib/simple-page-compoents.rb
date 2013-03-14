@@ -4,12 +4,16 @@ require 'data_table'
 
 module SimplePageCompoents
   module Helper
-    def page_navbar(*args)
-      NavbarRender.new(self, *args)
+    def page_navbar(*args, &block)
+      navbar = NavbarRender.new(self, *args)
+      yield navbar
+      capture {navbar.render}
     end
 
-    def page_data_table(*args)
-      DataTable::Render.new(self, *args)
+    def page_data_table(name, items, *args)
+      table = DataTable::Render.new(self, name, items, *args)
+      yield table
+      capture {table.render}
     end
 
     def page_breadcrumb(*args)

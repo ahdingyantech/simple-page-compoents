@@ -50,19 +50,22 @@ describe SimplePageCompoents::DataTable::Render  do
   describe '#add_column' do
     before(:all) {
       @items = [
-        MockItem.new('foo', 'bar', 'hee'),
+        MockItem.new('foo', 'bar', :hee),
         MockItem.new('magic', 'fire', 'skill'),
-        MockItem.new('blz', 'wow', 'game')
+        MockItem.new('blz', :wow, 'game')
       ]
+
+      @first_item = @items[0]
     }
 
     before(:each) {
       @table = Render.new($view, :test, @items)
       @table.
         add_column(:name).
-        add_column(:val) do |item|
+        add_column(:val) { |item|
           item.value
-        end
+        }.
+        add_column(:kind)
 
       @html = $view.capture_haml {@table.render}
       @nokogiri = Nokogiri::XML(@html)
@@ -74,7 +77,7 @@ describe SimplePageCompoents::DataTable::Render  do
     end
 
     it {
-      @table.columns.length.should == 2
+      @table.columns.length.should == 3
     }
 
     it {
@@ -106,20 +109,41 @@ describe SimplePageCompoents::DataTable::Render  do
     it {
       @table.items[0].class.should == MockItem
     }
-    
-    it {
+
+    it do
       @nokogiri.css('tbody > tr > td')[0].text.
         should == 'foo'
-    }
+    end
 
-    it {
+    it 'td class name should be column name' do
       @nokogiri.css('tbody > tr > td')[1]['class'].
         should == 'val'
-    }
+    end
 
     it {
       @nokogiri.css('tbody > tr > td')[1].text.
         should == 'bar'
     }
+
+    it 'test bugfix Issue #1' do
+      @nokogiri.css('tbody > tr > td')[2].text.
+        should == 'hee'
+    end
+
+    context TableColumn do
+      context '#value_of' do
+        it {
+          @table.columns[0].value_of(@first_item).should == 'foo'
+        }
+
+        it {
+          @table.columns[1].value_of(@first_item).should == 'bar'
+        }
+
+        it {
+          @table.columns[2].value_of(@first_item).should == 'hee'
+        }
+      end
+    end
   end
 end
