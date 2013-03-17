@@ -23,7 +23,7 @@ describe SimplePageCompoents::ProgressBar::Render do
 
   describe '#percent' do
     before {
-      @bar = ProgressBar::Render.new($view).set(62)
+      @bar = ProgressBar::Render.new($view, 62)
       @html = $view.capture_haml {@bar.render}
       @nokogiri = Nokogiri::XML(@html)
     }
@@ -40,9 +40,13 @@ describe SimplePageCompoents::ProgressBar::Render do
 
   describe '#css_class' do
     before {
-      @bar = ProgressBar::Render.new($view, :striped, :active, :success).set(62)
+      @bar = ProgressBar::Render.new($view, 62, :striped, :active, :success)
       @html = $view.capture_haml {@bar.render}
       @nokogiri = Nokogiri::XML(@html)
+    }
+
+    it {
+      @bar.percent.should == 62
     }
 
     it {

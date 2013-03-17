@@ -17,9 +17,8 @@ module SimplePageCompoents
       capture {table.render}
     end
 
-    def progress_bar(*args)
-      pb = ProgressBar::Render.new(self, *args)
-      yield pb
+    def page_progress_bar(percent = 0, *args)
+      pb = ProgressBar::Render.new(self, percent, *args)
       capture {pb.render}
     end
 

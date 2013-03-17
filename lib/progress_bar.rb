@@ -4,9 +4,9 @@ module SimplePageCompoents
     class Render
       attr_reader :view, :percent
 
-      def initialize(view, *args)
+      def initialize(view, percent = 0, *args)
         @view = view
-        @percent = 0
+        @percent = percent
 
         @striped = args.include? :striped
         @active = args.include? :active
@@ -15,11 +15,6 @@ module SimplePageCompoents
         @success = args.include? :success
         @warning = args.include? :warning
         @danger = args.include? :danger
-      end
-
-      def set(p = nil)
-        @percent = p if (p.instance_of? Fixnum) && p >= 0 && p <= 100
-        self
       end
 
       def css_class
