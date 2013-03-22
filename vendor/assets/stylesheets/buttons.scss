@@ -1,0 +1,152 @@
+.btn{
+  background-color:#f5f5f5;
+  @include gradient(#fff, #e6e6e6);
+  border-color:rgba(black, 0.1) rgba(black, 0.1) #b3b3b3;
+  border-image:none;
+  @include border-radius(3px);
+  border-style:solid;
+  border-width:1px;
+  @include box-shadow(
+    (0 1px 0 rgba(white, 0.2) inset, 0 1px 2px rgba(black, 0.05))
+  );
+  color:#333;
+  cursor:pointer;
+  display:inline-block;
+  font-size:14px;
+  line-height:20px;
+  margin-bottom:0;
+  padding:4px 12px;
+  text-align:center;
+  text-shadow:0 1px 1px rgba(white, 0.75);
+  vertical-align:middle;
+  &:hover, &:focus {
+    background-position:0 -15px;
+    color:#333;
+    text-decoration:none;
+    @include transition(background-position 0.1s linear 0s);
+  }
+  &:focus {
+    outline:thin dotted #333;
+    outline-offset:-2px;
+    @include box-shadow((0 2px 4px rgba(black, 0.15) inset, 0 1px 2px rgba(black, 0.05)));
+  }
+  &:active, &.active {
+    border-image:none;
+    outline:0 none;
+  }
+
+  &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
+    background-color:#e6e6e6;
+  }
+  &.disabled, &[disabled] {
+    background-image:none;
+    @include box-shadow(none);
+    cursor:default;
+    opacity:0.65;
+  }
+
+  &.primary {
+    background-color: #006DCC;
+    background-image: linear-gradient(to bottom, #0088CC, #0044CC);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
+      background-color: #0044CC;
+      color:#fff;
+    }
+  }
+
+  &.info {
+    background-color: #49AFCD;
+    background-image: linear-gradient(to bottom, #5BC0DE, #2F96B4);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
+      background-color: #2F96B4;
+      color:#fff;
+    }
+  }
+
+  &.success {
+    background-color: #5BB75B;
+    background-image: linear-gradient(to bottom, #62C462, #51A351);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
+      background-color: #51A351;
+      color:#fff;
+    }
+  }
+
+  &.warning {
+    background-color: #FAA732;
+    background-image: linear-gradient(to bottom, #FBB450, #F89406);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
+      background-color: #F89406;
+      color:#fff;
+    }
+  }
+
+  &.danger {
+    background-color: #DA4F49;
+    background-image: linear-gradient(to bottom, #EE5F5B, #BD362F);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
+      background-color: #BD362F;
+      color:#fff;
+    }
+  }
+
+  &.inverse {
+    background-color: #363636;
+    background-image: linear-gradient(to bottom, #444444, #222222);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
+      background-color: #222;
+      color:#fff;
+    }
+  }
+}
+
+.btn-group {
+  display:inline-block;
+  font-size:0;
+  position:relative;
+  vertical-align:middle;
+  white-space:nowrap;
+
+  > .btn {
+    @include border-radius(0);
+    font-size:14px;
+    position:relative;
+
+    &:first-child {
+      @include border-radius(4px 0 0 4px);
+      margin-left:0;
+    }
+
+    &:last-child {
+      @include border-radius(0 4px 4px 0);
+    }
+
+    & + .btn {
+      margin-left:-1px;
+    }
+  }
+}
