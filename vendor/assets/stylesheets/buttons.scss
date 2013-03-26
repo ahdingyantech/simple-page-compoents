@@ -122,6 +122,24 @@
       color:#fff;
     }
   }
+
+  &.large {
+    @include border-radius(6px);
+    font-size:18px;
+    padding:11px 19px;
+  }
+
+  &.small {
+    @include border-radius(3px);
+    font-size:12px;
+    padding:2px 10px;
+  }
+
+  &.mini {
+    @include border-radius(3px);
+    font-size:12px;
+    padding:0 6px;
+  }
 }
 
 .btn-group {

@@ -16,6 +16,10 @@ module SimplePageCompoents
         @warning = args.include? :warning
         @danger  = args.include? :danger
         @inverse = args.include? :inverse
+
+        @large = args.include? :large
+        @small = args.include? :small
+        @mini  = args.include? :mini
       end
 
       def css_class
