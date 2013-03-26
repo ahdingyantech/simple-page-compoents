@@ -130,6 +130,7 @@
   position:relative;
   vertical-align:middle;
   white-space:nowrap;
+  margin-bottom:20px;
 
   > .btn {
     @include border-radius(0);
