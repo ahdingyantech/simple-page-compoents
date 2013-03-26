@@ -278,3 +278,4 @@ describe SimplePageCompoents::NavItem do
     }
   end
 end
+

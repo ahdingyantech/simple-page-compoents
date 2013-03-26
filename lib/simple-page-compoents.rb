@@ -2,6 +2,7 @@
 require 'navbar'
 require 'data_table'
 require 'progress_bar'
+require 'button_group'
 
 module SimplePageCompoents
   module Helper
@@ -22,8 +23,10 @@ module SimplePageCompoents
       capture {pb.render}
     end
 
-    def page_breadcrumb(*args)
-      BreadcrumbRender.new(self, *args)
+    def page_button_group(name, *args)
+      button_group = ButtonGroup::Render.new(self, name, *args)
+      yield button_group
+      capture {button_group.render}
     end
   end
 
@@ -38,3 +41,4 @@ module SimplePageCompoents
     end
   end
 end
+
