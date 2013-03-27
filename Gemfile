@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gemspec
 
-gem 'rails'
+gem 'rails', '3.2.12'
 gem 'haml'
 gem 'rspec'
 gem 'nokogiri'
