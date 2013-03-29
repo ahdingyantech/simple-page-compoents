@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'navbar'
 require 'data_table'
+require 'data_tile'
 require 'progress_bar'
 require 'button_group'
 
@@ -16,6 +17,12 @@ module SimplePageCompoents
       table = DataTable::Render.new(self, name, items, *args)
       yield table
       capture {table.render}
+    end
+
+    def page_tile(name, items, *args)
+      tile = DataTile::Render.new(self, name, items, *args)
+      yield tile
+      capture {tile.render}
     end
 
     def page_progress_bar(percent = 0, *args)

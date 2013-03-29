@@ -1,0 +1,51 @@
+.page-data-tile {
+  .tile-item {
+    margin-top:20px;
+    &:first-child {margin-top:0;}
+    .tile-left {
+      float:left;
+      margin-right:10px;
+      .avatar {
+        margin-top:3px;
+        width:48px;height:48px;
+        img {width:48px;height:48px;}
+      }
+    }
+
+    .tile-body {
+      margin-left:58px;
+      margin-right:58px;
+      &.no-left  { margin-left:0px; }
+      &.no-right { margin-right:0px; }
+
+      > .tile-field {
+        margin-bottom:5px;
+        font-size:13px;
+        &.title {
+          font-size:14px;
+          font-weight:bold;
+        }
+      }
+
+      > .tile-foot {
+        @include floatfix;
+        > .tile-field {
+          float:left;
+          font-size:13px;
+          color:#999;
+          margin-right:10px;
+          a{color:#999;}
+          a:hover{color:#698ebf;}
+        }
+      }
+    }
+
+    .tile-field {
+      &.quiet {
+        color:#999;
+        a{color:#999;}
+        a:hover{color:#698ebf;}
+      }
+    }
+  }
+}

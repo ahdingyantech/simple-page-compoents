@@ -164,6 +164,10 @@
       @include border-radius(0 4px 4px 0);
     }
 
+    &:first-child:last-child {
+      @include border-radius(4px 4px);
+    }
+
     & + .btn {
       margin-left:-1px;
     }

@@ -10,7 +10,7 @@ class MockItem
   end
 end
 
-describe SimplePageCompoents::DataTable::Render  do
+describe SimplePageCompoents::DataTable::Render do
   before(:all) {
     @items = [
       MockItem.new('foo', 'bar', :hee),
@@ -23,20 +23,20 @@ describe SimplePageCompoents::DataTable::Render  do
 
   describe '.initialize' do
     it('view should be pass') {
-      Render.new($view, :test).view.should == $view
+      SimplePageCompoents::DataTable::Render.new($view, :test).view.should == $view
     }
   end
 
   describe '#css_class' do
-    before {
-      @table = Render.new $view, :users
+    it {
+      @table = SimplePageCompoents::DataTable::Render.new $view, :users
       @table.css_class.should == 'page-data-table users'
     }
   end
 
   describe '#render (no models)' do
     before(:each) {
-      @table = Render.new($view, :test)
+      @table = SimplePageCompoents::DataTable::Render.new($view, :test)
       @html = $view.capture_haml {@table.render}
       @nokogiri = Nokogiri::XML(@html)
     }
@@ -59,7 +59,7 @@ describe SimplePageCompoents::DataTable::Render  do
 
   describe '#add_column' do
     before(:each) {
-      @table = Render.new($view, :test, @items)
+      @table = SimplePageCompoents::DataTable::Render.new($view, :test, @items)
       @table.
         add_column(:name).
         add_column(:val) { |item|
@@ -148,7 +148,7 @@ describe SimplePageCompoents::DataTable::Render  do
 
   describe '#add_line_data' do
     before {
-      @table = Render.new($view, :test, @items)
+      @table = SimplePageCompoents::DataTable::Render.new($view, :test, @items)
       @table.
         add_line_data(:kind).
         add_column(:name).
