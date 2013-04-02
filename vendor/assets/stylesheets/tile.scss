@@ -48,6 +48,12 @@
         a{color:#999;}
         a:hover{color:#698ebf;}
       }
+      &.bold {
+        font-weight:bold;
+      }
+      &.font12 {font-size:12px;}
+      &.font13 {font-size:13px;}
+      &.font14 {font-size:14px;}
     }
   }
 }

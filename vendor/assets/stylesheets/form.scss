@@ -50,6 +50,13 @@ input[type="color"] {
   color: #555555;
   vertical-align: middle;
   @include border-radius(3px);
+
+  &.mini    {width:60px;}
+  &.small   {width:90px;}
+  &.medium  {width:150px;}
+  &.large   {width:210px;}
+  &.xlarge  {width:270px;}
+  &.xxlarge {width:530px;}
 }
 
 textarea {

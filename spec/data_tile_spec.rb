@@ -148,7 +148,6 @@ describe SimplePageCompoents::DataTile::Render  do
         }
 
         it {
-          puts @html
           @nokogiri.css('.page-data-tile.test > .mock_apple > .tile-right').
             length.should == 3
         }
@@ -190,8 +189,56 @@ describe SimplePageCompoents::DataTile::Render  do
     }
 
     it {
-      puts @html
       @nokogiri.css('.tile-body .title.bold').length.should == 3
+    }
+  end
+
+  context '#set_id' do
+    before(:each) {
+      @tile = SimplePageCompoents::DataTile::Render.new($view, :test, @items)
+      @tile.
+        set_id { |item|
+          'hohoho'
+        }.
+        add(:title, :bold).
+        add(:content).
+        add(:avatar) { |item|
+          "(#{item.avatar})"
+        }
+
+      @html = $view.capture_haml {@tile.render}
+      @nokogiri = Nokogiri::XML(@html)
+    }
+
+    it {
+      @nokogiri.css('#hohoho').length.should == 3
+    }
+  end
+
+  context '#context' do
+    before(:each) {
+      @tile = SimplePageCompoents::DataTile::Render.new($view, :test, @items)
+      @tile.add_left(:abc) {'test'}
+      @tile.context do |context, item|
+        context.add(:title, :bold)
+        context.add(:content)
+        context.add(:avatar) {
+          "(#{item.avatar})"
+        }
+      end
+
+
+      @html = $view.capture_haml {@tile.render}
+      @nokogiri = Nokogiri::XML(@html)
+    }
+
+    it {
+      puts @html
+      @nokogiri.css('.mock_apple .title').length.should == 3
+    }
+
+    it {
+      @nokogiri.css('.tile-left + .tile-body').length.should == 3
     }
   end
 end
