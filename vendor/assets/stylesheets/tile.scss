@@ -1,6 +1,9 @@
 .page-data-tile {
   .tile-item {
-    margin-top:20px;
+    @include floatfix;
+    padding-top:15px;
+    margin-top:15px;
+    border-top:solid 1px #eee;
     &:first-child {margin-top:0;}
     a {cursor:pointer;}
     

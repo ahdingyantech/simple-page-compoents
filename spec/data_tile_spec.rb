@@ -219,13 +219,20 @@ describe SimplePageCompoents::DataTile::Render  do
     before(:each) {
       @tile = SimplePageCompoents::DataTile::Render.new($view, :test, @items)
       @tile.add_left(:abc) {'test'}
-      @tile.context do |context, item|
-        context.add(:title, :bold)
-        context.add(:content)
-        context.add(:avatar) {
+      @tile.context do |item|
+        add(:title, :bold)
+        add(:content)
+        add(:avatar) {
           "(#{item.avatar})"
         }
       end
+      @tile.add(:foo) do
+        :bar
+      end
+      @tile.context do |item|
+        add(:hehe) { '笑' }
+      end
+
 
 
       @html = $view.capture_haml {@tile.render}
@@ -234,7 +241,7 @@ describe SimplePageCompoents::DataTile::Render  do
 
     it {
       puts @html
-      @nokogiri.css('.mock_apple .title').length.should == 3
+      @nokogiri.css('.mock_apple .title.bold').length.should == 3
     }
 
     it {

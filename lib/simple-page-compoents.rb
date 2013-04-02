@@ -19,9 +19,9 @@ module SimplePageCompoents
       capture {table.render}
     end
 
-    def page_tile(name, items, *args)
+    def page_tile(name, items, *args, &block)
       tile = DataTile::Render.new(self, name, items, *args)
-      yield tile
+      tile.instance_exec(tile, &block) if block_given?
       capture {tile.render}
     end
 
