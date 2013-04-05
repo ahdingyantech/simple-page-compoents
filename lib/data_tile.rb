@@ -33,6 +33,8 @@ module SimplePageCompoents
         @font12 = args.include? :font12
         @font13 = args.include? :font13
         @font14 = args.include? :font14
+        @font15 = args.include? :font15
+        @font16 = args.include? :font16
       end
 
       def tile=(tile)
@@ -52,6 +54,8 @@ module SimplePageCompoents
         c << :font12 if @font12
         c << :font13 if @font13
         c << :font14 if @font14
+        c << :font15 if @font15
+        c << :font16 if @font16
         c.join ' '
       end
     end
