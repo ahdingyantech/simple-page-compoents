@@ -1,6 +1,6 @@
 .btn{
-  background-color:#f5f5f5;
   @include gradient(#fff, #e6e6e6);
+  background-color:#f5f5f5;
   border-color:rgba(black, 0.1) rgba(black, 0.1) #b3b3b3;
   border-image:none;
   @include border-radius(3px);
@@ -25,14 +25,10 @@
     text-decoration:none;
     @include transition(background-position 0.1s linear 0s);
   }
-  &:focus {
-    outline:thin dotted #333;
-    outline-offset:-2px;
-    @include box-shadow((0 2px 4px rgba(black, 0.15) inset, 0 1px 2px rgba(black, 0.05)));
-  }
   &:active, &.active {
-    border-image:none;
+    background-image:none;
     outline:0 none;
+    @include box-shadow((0 2px 4px rgba(black, 0.15) inset, 0 1px 2px rgba(black, 0.05)));
   }
 
   &:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
@@ -46,8 +42,8 @@
   }
 
   &.primary {
+    @include gradient(#0088CC, #0044CC);
     background-color: #006DCC;
-    background-image: linear-gradient(to bottom, #0088CC, #0044CC);
     background-repeat: repeat-x;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
     color: #FFFFFF;
@@ -59,8 +55,8 @@
   }
 
   &.info {
+    @include gradient(#5BC0DE, #2F96B4);
     background-color: #49AFCD;
-    background-image: linear-gradient(to bottom, #5BC0DE, #2F96B4);
     background-repeat: repeat-x;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
     color: #FFFFFF;
@@ -72,8 +68,8 @@
   }
 
   &.success {
+    @include gradient(#62C462, #51A351);
     background-color: #5BB75B;
-    background-image: linear-gradient(to bottom, #62C462, #51A351);
     background-repeat: repeat-x;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
     color: #FFFFFF;
@@ -85,8 +81,8 @@
   }
 
   &.warning {
+    @include gradient(#FBB450, #F89406);
     background-color: #FAA732;
-    background-image: linear-gradient(to bottom, #FBB450, #F89406);
     background-repeat: repeat-x;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
     color: #FFFFFF;
@@ -98,8 +94,8 @@
   }
 
   &.danger {
+    @include gradient(#EE5F5B, #BD362F);
     background-color: #DA4F49;
-    background-image: linear-gradient(to bottom, #EE5F5B, #BD362F);
     background-repeat: repeat-x;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
     color: #FFFFFF;
@@ -111,8 +107,8 @@
   }
 
   &.inverse {
+    @include gradient(#444444, #222222);
     background-color: #363636;
-    background-image: linear-gradient(to bottom, #444444, #222222);
     background-repeat: repeat-x;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
     color: #FFFFFF;
