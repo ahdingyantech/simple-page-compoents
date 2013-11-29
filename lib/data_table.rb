@@ -90,7 +90,9 @@ module SimplePageCompoents
           @columns.each do |column|
             text = column.name_string
             th_css_class = column.name
-            @view.haml_tag :th, text, :class => th_css_class
+            @view.haml_tag :th, :class => th_css_class do
+              @view.haml_tag :span, text, :class => 'tr-inner'
+            end
           end
         end
 
