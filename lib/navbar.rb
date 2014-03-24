@@ -71,6 +71,11 @@ module SimplePageCompoents
 
     private
       def _render_a
+        if @url.blank?
+          @view.haml_tag :div, @text, :class => 'static'
+          return
+        end
+
         if self.with_icon?
           @view.haml_tag :a, :href => @url do
             @view.haml_tag :i, '', :class => 'icon'
@@ -78,7 +83,8 @@ module SimplePageCompoents
           end
           return
         end
-        @view.haml_tag :a, @text,:href => @url
+
+        @view.haml_tag :a, @text, :href => @url
       end
   end
 
