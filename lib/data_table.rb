@@ -50,11 +50,11 @@ module SimplePageCompoents
 
       def css_class
         c = [
-          "page-data-table", @name
+          "page-data-table table", @name
         ]
         c << 'table-hover' if @table_hover
-        c << 'striped' if @striped
-        c << 'bordered' if @bordered
+        c << 'table-striped' if @striped
+        c << 'table-bordered' if @bordered
         c.join(' ')
       end
 
