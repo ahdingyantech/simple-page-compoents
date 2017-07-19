@@ -71,6 +71,11 @@ module SimplePageCompoents
 
     private
       def _render_a
+        if @url.blank?
+          @view.haml_tag :div, @text, :class => 'static'
+          return
+        end
+
         if self.with_icon?
           @view.haml_tag :a, :href => @url do
             @view.haml_tag :i, '', :class => 'icon'
@@ -78,7 +83,8 @@ module SimplePageCompoents
           end
           return
         end
-        @view.haml_tag :a, @text,:href => @url
+
+        @view.haml_tag :a, @text, :href => @url
       end
   end
 
@@ -99,6 +105,7 @@ module SimplePageCompoents
       @as_list = args.include? :as_list
 
       @with_icon = args.include? :with_icon
+      @attached_style = args - [:fixed_top , :fixed_bottom , :color_inverse , :as_list , :with_icon]
     end
 
     def css_class
@@ -110,6 +117,7 @@ module SimplePageCompoents
       c << 'fixed-top' if @fixed_top
       c << 'fixed-bottom' if @fixed_buttom
       c << 'color-inverse' if @color_inverse
+      c << @attached_style.join(' ') if @attached_style
 
       c.join(' ')
     end
