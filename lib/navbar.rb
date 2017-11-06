@@ -3,7 +3,9 @@ module SimplePageCompoents
   module CanRenderNavUl
     private
       def _render_ul
-        @view.haml_tag :ul, :class => 'nav' do
+        ul_css_class = 'nav'
+        ul_css_class = 'sidebar-menu' if @new_theme.present? && @new_theme
+        @view.haml_tag :ul, :class => ul_css_class do
           @items.each { |item| item.render }
         end if @items.present?
       end
@@ -101,11 +103,10 @@ module SimplePageCompoents
       @fixed_top = args.include? :fixed_top
       @fixed_bottom = args.include? :fixed_bottom
       @color_inverse =  args.include? :color_inverse
-
       @as_list = args.include? :as_list
-
       @with_icon = args.include? :with_icon
-      @attached_style = args - [:fixed_top , :fixed_bottom , :color_inverse , :as_list , :with_icon]
+      @new_theme = args.include? :new_theme
+      @attached_style = args - [:fixed_top, :fixed_bottom, :color_inverse, :as_list, :with_icon, :new_theme]
     end
 
     def css_class
@@ -155,10 +156,15 @@ module SimplePageCompoents
     end
 
     def render
-      @view.haml_tag :div, :class => self.css_class do
-        @view.haml_tag :div, :class => self.inner_css_class do
-          _render_prepend
-          _render_ul
+      if @new_theme
+        _render_prepend
+        _render_ul
+      else
+        @view.haml_tag :div, :class => self.css_class do
+          @view.haml_tag :div, :class => self.inner_css_class do
+            _render_prepend
+            _render_ul
+          end
         end
       end
     end

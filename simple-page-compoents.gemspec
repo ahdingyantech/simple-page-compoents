@@ -1,7 +1,7 @@
 # coding: utf-8
 Gem::Specification.new do |s|
   s.name          = 'simple-page-compoents'
-  s.version       = '0.0.8.2'
+  s.version       = '0.0.8.3'
   s.platform      = Gem::Platform::RUBY
   s.date          = '2017-08-25'
   s.summary       = 'simple page compoents'
