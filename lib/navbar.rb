@@ -17,9 +17,11 @@ module SimplePageCompoents
     attr_accessor :text, :url
     attr_accessor :parent, :view
     attr_accessor :items
+    attr_accessor :ico_class
     
     def initialize(text, url, options = {})
       @option_class = options[:class] || ''
+      @option_ico_class = options[:ico_class] || ''
 
       @parent = nil
       @view   = nil
@@ -75,6 +77,15 @@ module SimplePageCompoents
       def _render_a
         if @url.blank?
           @view.haml_tag :div, @text, :class => 'static'
+          return
+        end
+
+        if self.new_theme?
+          @view.haml_tag :a, :href => @url do
+            @view.haml_tag :i, '', :class => 'fa ' + @option_ico_class
+            @view.haml_tag :span
+              @view.haml_concat @text
+          end
           return
         end
 
@@ -148,6 +159,10 @@ module SimplePageCompoents
 
     def with_icon?
       @with_icon
+    end
+
+    def new_theme?
+      @new_theme
     end
 
     def prepend(str = '', &block)
