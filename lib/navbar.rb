@@ -87,7 +87,7 @@ module SimplePageCompoents
         if self.new_theme?
           @view.haml_tag :a, :href => @url do
             @view.haml_tag :i, '', :class => 'fa ' + @option_ico_class
-            @view.haml_tag :span, @view.haml_concat @text
+            @view.haml_tag :span, @text
           end
           return
         end
