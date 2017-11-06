@@ -73,6 +73,10 @@ module SimplePageCompoents
       @parent.with_icon?
     end
 
+    def new_theme?
+      @parent.new_theme?
+    end
+
     private
       def _render_a
         if @url.blank?
