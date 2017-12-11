@@ -46,15 +46,29 @@ module SimplePageCompoents
 
         # table with cell border
         @bordered = args.include? :bordered
+
+        # table with theme
+        @theme = 'default'
+        @theme = 'v1' if args.include? :theme_v1
+
+        @attached_style = args - [:hover, :striped, :bordered, :theme_v1]
       end
 
       def css_class
-        c = [
-          "page-data-table", @name
-        ]
-        c << 'table-hover' if @table_hover
-        c << 'striped' if @striped
-        c << 'bordered' if @bordered
+        c = [@name]
+        case @theme
+          when 'v1'
+            c << 'table'
+            c << 'table-hover' if @table_hover
+            c << 'table-striped' if @striped
+            c << 'table-bordered' if @bordered
+          else
+            c << 'page-data-table'
+            c << 'table-hover' if @table_hover
+            c << 'striped' if @striped
+            c << 'bordered' if @bordered
+        end
+        c += @attached_style
         c.join(' ')
       end
 
